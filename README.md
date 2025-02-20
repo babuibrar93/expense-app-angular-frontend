@@ -1,59 +1,112 @@
-# Tset
+# Expense App
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.1.5.
+## Overview
 
-## Development server
+The Expense App is a web-based application built with **Angular**, **Angular Material**, and **Tailwind CSS**, designed for managing expenses with a robust **RBAC (Role-Based Access Control)** system. The backend is powered by **NestJS, TypeORM, and MSSQL**, ensuring high performance and scalability.
 
-To start a local development server, run:
+## Features
 
-```bash
-ng serve
+- **User Authentication** (Email/Password, Google, Facebook, GitHub - SSO Integration)
+- **Role-Based Access Control (RBAC)**
+- **Multi-Organization Support**
+- **Expense Management**
+- **Dynamic Form Validations**
+- **Real-time Data Updates**
+- **Responsive UI with Tailwind CSS & Angular Material**
+
+## Tech Stack
+
+- **Frontend:** Angular, Angular Material, Tailwind CSS
+- **Backend:** NestJS, TypeORM, MSSQL
+- **State Management:** RxJS, Services
+- **Authentication:** JWT, Social Logins (SSO)
+- **Deployment:** AWS
+
+## Project Setup
+
+### Prerequisites
+
+- Node.js (Latest LTS)
+- Angular CLI
+- MSSQL Server
+
+### Installation
+
+1. Clone the repository:
+   ```sh
+   git clone git@github.com:babuibrar93/expense-app-angular-frontend.git
+   cd expense-app-angular-frontend
+   ```
+2. Install dependencies:
+   ```sh
+   npm install
+   ```
+3. Set up environment variables in `.env` file:
+   ```sh
+   API_BASE_URL=<your_backend_api_url>
+   ```
+4. Start the development server:
+   ```sh
+   ng serve
+   ```
+
+## Folder Structure
+
 ```
+expense-app-angular-frontend/
+/src
+│── app/
+│   ├── core/                     # Core Module (Singleton services, global components)
+│   │   ├── contants/             # Route project constants
+│   │   ├── guards/               # Route Guards (Auth, Role-based)
+│   │   ├── interceptors/         # HTTP Interceptors (JWT, Logging, Error handling)
+│   │   ├── services/             # Global Services (Auth, API calls, LocalStorage)
+│   │   ├── utils/                # Utility functions/helpers
+│   │   ├── Models/               # Interfaces & Type Definitions
+│   │   ├── pipes/                # Custom Pipes
+│   │   ├── core.module.ts        # Core Module Definition
+│   ├── shared/                   # Shared Module (Reusable Components, Pipes, Directives)
+│   │   ├── components/           # Reusable UI components (Buttons, Modals, Forms)
+│   │   ├── directives/           # Custom Directives
+│   │   ├── shared.module.ts      # Shared Module Definition
+│   ├── auth/                     # Authentication Module (Login, Register, Forgot Password)
+│   │   ├── login/                # Login Component
+│   │   ├── register/             # Register Component
+│   │   ├── auth.module.ts        # Auth Module Definition
+│   ├── dashboard/                # Dashboard Module
+│   │   ├── components/           # Dashboard-specific Components
+│   │   ├── services/             # Dashboard Services
+│   │   ├── dashboard.module.ts
+│   ├── users/                    # Users Module (Lazy Loaded)
+│   │   ├── list/                 # User List Component
+│   │   ├── detail/               # User Detail Component
+│   │   ├── users.module.ts       # Users Module Definition
+│   ├── layout/                   # Global Layout Components (Header, Sidebar, Footer)
+│   │   ├── header/
+│   │   ├── sidebar/
+│   │   ├── footer/
+│   │   ├── layout.module.ts      # Layout Module
+│   ├── app-routing.module.ts     # Main Routing Module
+│   ├── app.component.ts          # Root Component
+│   ├── app.module.ts             # Root Module
+│── assets/                       # Static Assets (Images, Icons, JSON)
+│── environments/                 # Environment Configurations (dev, prod)
+│── main.ts                        # Bootstrap file
+│── styles.scss                    # Global Styles
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## Usage
+1. Register/Login
+2. Manage Expenses
+3. Assign Roles & Permissions
+4. View Reports & Insights
 
-## Code scaffolding
+## Contributing
+1. Fork the repo
+2. Create a feature branch
+3. Commit changes
+4. Submit a PR
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## License
+This project is licensed under the MIT License.
 
-```bash
-ng generate component component-name
 ```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
