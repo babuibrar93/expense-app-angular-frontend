@@ -1,0 +1,7 @@
+<div>
+  <div>{{title()}}</div>
+  <app-header></app-header>
+
+  <app-sidebar (sidebarToggle)="handleSidebarToggle($event)"></app-sidebar>
+  <router-outlet></router-outlet>
+</div>

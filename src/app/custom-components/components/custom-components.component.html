@@ -1,0 +1,71 @@
+<main class="main">
+  <div class="w-full sub flex gap-6">
+    <div>
+      <app-custom-autocomplete
+        [options]="['Apple', 'Banana', 'Cherry', 'Mango', 'Orange', 'Pineapple']"
+        placeholder="Pick a fruit"
+        (selectedOption)="onOptionSelect($event)"
+      ></app-custom-autocomplete>
+    </div>
+    <div class="flex gap-3">
+      <app-custom-button
+        label="Submit"
+        startIcon="fas fa-check"
+        (clicked)="handleClicked($event)"
+      ></app-custom-button>
+
+      <app-custom-button
+        label="Delete"
+        endIcon="fas fa-trash"
+        customClass="bg-red-500 hover:bg-red-600"
+      ></app-custom-button>
+    </div>
+
+    <div class="w-full">
+      <app-custom-input [label]="'Favorite food'" [placeholder]="'Ex. Pizza'" [isTextArea]="false">
+      </app-custom-input>
+
+      <app-custom-input
+        [label]="'Leave a comment'"
+        [placeholder]="'Ex. It makes me feel...'"
+        [isTextArea]="true"
+      >
+      </app-custom-input>
+    </div>
+
+    <div>
+      <app-custom-radio-button
+        [radioOptions]="radioOptions"
+        [selectedValue]="selectedOption"
+        (selectedValueChange)="onValueChange($event)"
+        [customClass]="'flex items-center space-x-2'"
+      ></app-custom-radio-button>
+    </div>
+
+    <div>
+      <app-custom-slide-toggle
+        [value]="toggleState"
+        [label]="'Enable'"
+        [customClass]="'flex'"
+        [labelPosition]="'after'"
+        (valueChange)="onToggleChange($event)"
+      ></app-custom-slide-toggle>
+    </div>
+
+    <div>
+      <app-custom-button label="Open Modal" (clicked)="openModal()"></app-custom-button>
+
+      <app-custom-modal
+        [isOpen]="modalVisible"
+        title="Confirmation"
+        content="Are you sure you want to proceed?"
+        modalSize="medium"
+        (close)="closeModal()"
+      ></app-custom-modal>
+    </div>
+
+    <div class="w-full max-w-[300px]">
+      <app-custom-date-picker label="Select a Date"> </app-custom-date-picker>
+    </div>
+  </div>
+</main>

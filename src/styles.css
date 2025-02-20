@@ -1,1 +1,258 @@
-/* You can add global styles to this file, and also import other style files */
+@import 'tailwindcss';
+
+/* Global Colors */
+:root {
+  --primary-color: #0a54f5; /* Dark Blue */
+  --secondary-color: #3b82f6; /* Lighter Blue */
+  --danger-color: #ef4444; /* Danger Color Red */
+  --muted-color: #9ca3af; /* Muted Gray */
+  --background-color: #ffffff; /* Dark Background */
+  --card-bg-color: #ffffff; /* White Background for Cards */
+  --text-primary-color: #111111; /* Black Text for Primary */
+  --text-secondary-color: #ffffff; /* White Text for Secondary */
+  --text-tertiary-color: #0a54f5; /* Dark blue Text for tertiary */
+  --text-muted-color: #d1d5db; /* Light Gray Text */
+}
+
+/* Custom Text Styles */
+.text-primary {
+  color: var(--text-primary-color);
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.text-secondary {
+  color: var(--text-secondary-color);
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.text-tertiary {
+  color: var(--text-tertiary-color);
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.text-danger {
+  color: var(--danger-color);
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.text-muted {
+  color: var(--muted-color);
+  font-size: 0.875rem;
+  font-weight: 400;
+}
+
+.text-heading {
+  font-family: 'Cormorant', serif;
+  font-weight: 700;
+}
+
+.text-body {
+  font-family: 'Mulish', sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--text-primary-color);
+}
+
+/* Button Styles */
+.button-primary {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 0.75rem 1.25rem;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+  text-transform: uppercase;
+}
+
+.button-primary:hover {
+  background-color: var(--secondary-color);
+}
+
+.button-danger {
+  background-color: var(--danger-color);
+  color: white;
+  padding: 0.75rem 1.25rem;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+  text-transform: uppercase;
+}
+
+.button-danger:hover {
+  background-color: #b91c1c;
+}
+
+/* Input Fields */
+.input {
+  width: 100%;
+  padding: 0.75rem 1.25rem;
+  border: 1px solid #4b5563; /* Darker Border */
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  transition: border-color 0.3s ease;
+  background-color: var(--background-color); /* Dark Input Background */
+  color: var(--text-primary-color);
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+}
+
+/* Card Styles */
+.card {
+  background-color: var(--card-bg-color);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  padding: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.card h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: var(--primary-color);
+}
+
+.card p {
+  font-size: 1rem;
+  color: var(--muted-color);
+  line-height: 1.5;
+}
+
+/* Navbar Link */
+.nav-link {
+  color: var(--muted-color);
+  font-weight: 500;
+  font-size: 1rem;
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+  color: var(--primary-color);
+}
+
+/* Sidebar Item */
+.sidebar-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1.5rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 1rem;
+}
+
+.sidebar-item:hover {
+  background-color: #374151; /* Hover for Sidebar */
+}
+
+.sidebar-item span {
+  font-weight: 400;
+}
+
+/* Notification Dot */
+.notif-dot {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: var(--danger-color);
+  color: white;
+  font-size: 0.75rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 9999px;
+  border: 2px solid white;
+}
+
+/* Additional Global Styles */
+body {
+  font-family: 'Mulish', sans-serif;
+  background-color: var(--background-color);
+  margin: 0;
+  padding: 0;
+  color: var(--text-primary-color);
+}
+
+/* Heading Styles */
+h1 {
+  font-size: 2.25rem;
+  font-weight: 700;
+  line-height: 1.25;
+  text-align: center;
+  color: var(--primary-color);
+}
+
+h2 {
+  font-size: 1.875rem;
+  font-weight: 600;
+  line-height: 1.3;
+  text-align: center;
+  color: var(--primary-color);
+}
+
+h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.35;
+  text-align: center;
+  color: var(--primary-color);
+}
+
+h4 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  text-align: center;
+  color: var(--primary-color);
+}
+
+h5 {
+  font-size: 1.125rem;
+  font-weight: 500;
+  text-align: center;
+  color: var(--primary-color);
+}
+
+h6 {
+  font-size: 1rem;
+  font-weight: 500;
+  text-align: center;
+  color: var(--primary-color);
+}
+
+a,
+button {
+  cursor: pointer;
+}
+
+.error-snackbar {
+  background-color: var(--danger-color) !important;
+  color: white;
+  border-radius: 20px;
+}
+
+.success-snackbar {
+  background-color: var(--primary-color);
+  color: black;
+  border-radius: 20px;
+}
+
+.mat-mdc-snack-bar-container .mat-mdc-snackbar-surface {
+  background-color: transparent !important;
+  border-radius: 20px !important;
+}
+
+.mdc-button__label {
+  color: white !important;
+  padding: 1px 10px !important;
+  border-left: 1px solid white !important;
+}

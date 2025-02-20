@@ -1,0 +1,30 @@
+<button
+  [ngClass]="[
+    'disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center justify-center',
+    defaultClasses,
+    customClass
+  ]"
+  [disabled]="disabled || isLoading"
+  (click)="onClick($event)"
+  [type]="type"
+>
+  <!-- Start Icon (Only show when not loading) -->
+  <span *ngIf="startIcon && !isLoading" class="mr-2">
+    <i class="{{ startIcon }}"></i>
+  </span>
+
+  <!-- Loading Spinner (Show when isLoading is true) -->
+  <span *ngIf="isLoading" class="animate-spin mr-2">
+    <i class="fas fa-spinner"></i>
+  </span>
+
+  <!-- Button Label -->
+  <span class="whitespace-nowrap">
+    {{ isLoading ? 'Processing...' : label }}
+  </span>
+
+  <!-- End Icon (Only show when not loading) -->
+  <span *ngIf="endIcon && !isLoading" class="ml-2">
+    <i class="{{ endIcon }}"></i>
+  </span>
+</button>

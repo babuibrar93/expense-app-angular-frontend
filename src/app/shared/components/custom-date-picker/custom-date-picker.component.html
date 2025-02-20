@@ -1,0 +1,15 @@
+<div class="relative mx-auto" [ngClass]="customClass">
+  <mat-form-field class="w-full custom-mat-field">
+    <mat-label class="text-primary">{{ label }}</mat-label>
+    <input
+      matInput
+      [matDatepicker]="datePicker"
+      [formControl]="singleDateControl"
+    />
+    <mat-datepicker-toggle
+      matIconSuffix
+      [for]="datePicker"
+    ></mat-datepicker-toggle>
+    <mat-datepicker #datePicker></mat-datepicker>
+  </mat-form-field>
+</div>

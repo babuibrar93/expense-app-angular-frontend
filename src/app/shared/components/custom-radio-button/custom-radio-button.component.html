@@ -1,0 +1,16 @@
+<div>
+  <mat-radio-group
+    [ngClass]="customClass"
+    [value]="selectedValue"
+    (change)="onSelectionChange($event.value)"
+  >
+    <div *ngFor="let option of radioOptions">
+      <mat-radio-button
+        [value]="option.value"
+        class="custom-radio-button text-primary"
+      >
+        {{ option.label }}
+      </mat-radio-button>
+    </div>
+  </mat-radio-group>
+</div>

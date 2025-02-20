@@ -1,0 +1,13 @@
+<div>
+  <mat-slide-toggle
+    hideIcon="hideIcon"
+    [disabled]="disabled"
+    [checked]="value"
+    (change)="onToggleChange($event)"
+    [labelPosition]="labelPosition"
+  >
+    <span [ngClass]="customClass" class="text-primary">
+      {{ label }}
+    </span>
+  </mat-slide-toggle>
+</div>

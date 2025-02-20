@@ -1,0 +1,61 @@
+<div class="w-full flex h-screen">
+  <div class="w-1/3 sm:block hidden">
+    <app-welcome-panel
+      [message]="
+        'Welcome Back! We are excited to have you with us again. Pick up right where you left off and continue your journey'
+      "
+    ></app-welcome-panel>
+  </div>
+
+  <div class="w-full sm:w-[70%] h-screen flex justify-center items-center">
+    <form
+      [formGroup]="loginForm"
+      (ngSubmit)="onSubmit()"
+      class="flex flex-col gap-4 w-full max-w-sm bg-white p-8 rounded-lg shadow-2xl border border-gray-200"
+    >
+      <div>
+        <h2>Login Here</h2>
+        <p class="text-primary text-center">Enter your credentials to get your account</p>
+      </div>
+      <hr class="flex-1 border-t border-gray-300" />
+      <div class="flex flex-col gap-4">
+        <app-custom-input
+          name="email"
+          label="Email"
+          placeholder="user@example.com"
+          [required]="true"
+          [formControl]="control('email')"
+        ></app-custom-input>
+
+        <app-custom-input
+          label="Password"
+          placeholder="*******"
+          [required]="true"
+          type="password"
+          [formControl]="control('password')"
+        ></app-custom-input>
+      </div>
+
+      <div class="flex flex-col gap-2">
+        <p class="text-primary text-right">
+          <a routerLink="/auth/register" class="text-tertiary">Forget Password ?</a>
+        </p>
+
+        <app-custom-button
+          label="Login"
+          [type]="'submit'"
+          customClass="w-full"
+          [isLoading]="(isLoading$ | async) ?? false"
+        ></app-custom-button>
+        <!-- <app-custom-loader></app-custom-loader> -->
+      </div>
+
+      <app-oauth-login></app-oauth-login>
+      <hr class="flex-1 border-t border-gray-300" />
+      <p class="text-primary text-center">
+        Create new account -
+        <a routerLink="/auth/register" class="text-tertiary">Register Here</a>
+      </p>
+    </form>
+  </div>
+</div>

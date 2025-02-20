@@ -1,0 +1,36 @@
+<div class="modal-overlay" *ngIf="isOpen" (click)="closeModal()">
+  <div
+    class="modal-content"
+    [ngClass]="[customClass, modalSize]"
+    (click)="$event.stopPropagation()"
+  >
+    <!-- Header -->
+    <div class="modal-header">
+      <h3>{{ title }}</h3>
+      <button *ngIf="showCloseButton" class="close-btn" (click)="closeModal()">
+        <i class="fa fa-close" aria-hidden="true"></i>
+
+      </button>
+    </div>
+
+    <!-- Body -->
+    <div class="modal-body">
+      <p class="text-primary">{{ content }}</p>
+      <ng-content></ng-content>
+      <!-- Allows injecting custom content -->
+    </div>
+
+    <!-- Footer -->
+    <div *ngIf="showFooter" class="modal-footer">
+      <app-custom-button
+        label="Cancel"
+        customClass="bg-gray-300 !text-black"
+        (clicked)="closeModal()"
+      ></app-custom-button>
+      <app-custom-button
+        label="Confirm"
+        (clicked)="closeModal()"
+      ></app-custom-button>
+    </div>
+  </div>
+</div>

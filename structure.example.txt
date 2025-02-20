@@ -1,0 +1,39 @@
+/src
+│── app/
+│   ├── core/                     # Core Module (Singleton services, global components)
+│   │   ├── contants/             # Route project constants
+│   │   ├── guards/               # Route Guards (Auth, Role-based)
+│   │   ├── interceptors/         # HTTP Interceptors (JWT, Logging, Error handling)
+│   │   ├── services/             # Global Services (Auth, API calls, LocalStorage)
+│   │   ├── utils/                # Utility functions/helpers
+│   │   ├── Models/               # Interfaces & Type Definitions
+│   │   ├── pipes/                # Custom Pipes
+│   │   ├── core.module.ts        # Core Module Definition
+│   ├── shared/                   # Shared Module (Reusable Components, Pipes, Directives)
+│   │   ├── components/           # Reusable UI components (Buttons, Modals, Forms)
+│   │   ├── directives/           # Custom Directives
+│   │   ├── shared.module.ts      # Shared Module Definition
+│   ├── auth/                     # Authentication Module (Login, Register, Forgot Password)
+│   │   ├── login/                # Login Component
+│   │   ├── register/             # Register Component
+│   │   ├── auth.module.ts        # Auth Module Definition
+│   ├── dashboard/                # Dashboard Module
+│   │   ├── components/           # Dashboard-specific Components
+│   │   ├── services/             # Dashboard Services
+│   │   ├── dashboard.module.ts
+│   ├── users/                    # Users Module (Lazy Loaded)  
+│   │   ├── list/                 # User List Component
+│   │   ├── detail/               # User Detail Component
+│   │   ├── users.module.ts       # Users Module Definition
+│   ├── layout/                   # Global Layout Components (Header, Sidebar, Footer)
+│   │   ├── header/
+│   │   ├── sidebar/
+│   │   ├── footer/
+│   │   ├── layout.module.ts      # Layout Module
+│   ├── app-routing.module.ts     # Main Routing Module
+│   ├── app.component.ts          # Root Component
+│   ├── app.module.ts             # Root Module
+│── assets/                       # Static Assets (Images, Icons, JSON)
+│── environments/                 # Environment Configurations (dev, prod)
+│── main.ts                        # Bootstrap file
+│── styles.scss                    # Global Styles

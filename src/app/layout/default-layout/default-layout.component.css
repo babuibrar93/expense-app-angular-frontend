@@ -1,0 +1,17 @@
+main {
+  padding: 0;
+  width: 100%;
+  min-height: 100%;
+}
+
+.sidebarOpen {
+  padding: 5rem 17rem;
+}
+
+.sidebarClose {
+  padding: 5rem 5rem;
+}
+
+.content {
+  display: flex;
+}

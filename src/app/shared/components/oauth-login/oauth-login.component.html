@@ -1,0 +1,19 @@
+<div class="flex flex-col gap-4">
+  <div class="flex items-center justify-center">
+    <hr class="flex-1 border-t border-gray-300" />
+    <span class="mx-4 text-gray-500">or connect with</span>
+    <hr class="flex-1 border-t border-gray-300" />
+  </div>
+  <div class="flex justify-around">
+    <div class="bg-gray-100 p-3 rounded-full hover:bg-gray-200 cursor-pointer" (click)="logininWithGoogle()">
+      <img src="svg/google.svg" alt="google" class="w-8 h-8" />
+    </div>
+
+    <div class="bg-gray-100 p-3 rounded-full hover:bg-gray-200 cursor-pointer" (click)="logininWithGithub()">
+      <img src="svg/github.svg" alt="github" class="w-8 h-8" />
+    </div>
+    <div class="bg-gray-100 p-3 rounded-full hover:bg-gray-200 cursor-pointer" (click)="logininWithFacebook()">
+      <img src="svg/facebook.svg" alt="facebook" class="w-8 h-8" />
+    </div>
+  </div>
+</div>

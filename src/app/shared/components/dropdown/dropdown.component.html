@@ -1,0 +1,35 @@
+<div class="relative inline-block">
+  <!-- Dropdown Button -->
+  <button
+    (click)="toggleDropdown()"
+    class="px-4 py-2 bg-white border rounded-md shadow flex items-center gap-2 cursor-pointer"
+  >
+    <img *ngIf="buttonIcon" [src]="buttonIcon" class="w-5 h-5" />
+    {{ buttonLabel }}
+  </button>
+
+  <!-- Dropdown Menu -->
+  <div
+    *ngIf="isOpen"
+    class="absolute mt-2 bg-white shadow-lg rounded-md w-48 py-2 z-50"
+    [ngClass]="{
+      'right-0': position === 'right',
+      'left-0': position === 'left'
+    }"
+  >
+    <ul>
+      <li
+        *ngFor="let item of items"
+        (click)="handleItemClick(item)"
+        [ngClass]="{
+          'text-red-600': item.color === 'red',
+          'border-t border-gray-300': item.separator
+        }"
+        class="px-4 py-2 flex items-center gap-2 hover:bg-gray-200 cursor-pointer transition"
+      >
+        <img *ngIf="item.icon" [src]="item.icon" class="w-4 h-4" />
+        {{ item.label }}
+      </li>
+    </ul>
+  </div>
+</div>
