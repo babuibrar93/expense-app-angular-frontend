@@ -18,9 +18,8 @@ The Expense App is a web-based application built with **Angular**, **Angular Mat
 
 - **Frontend:** Angular, Angular Material, Tailwind CSS
 - **Backend:** NestJS, TypeORM, MSSQL
-- **State Management:** RxJS, Services
+- **State Management:** Services
 - **Authentication:** JWT, Social Logins (SSO)
-- **Deployment:** AWS
 
 ## Project Setup
 
