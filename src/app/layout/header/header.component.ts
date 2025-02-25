@@ -34,7 +34,7 @@ export class HeaderComponent implements OnInit {
   }
 
   navigateTo(path: string): void {
-    // this.router.navigate([path]);
+    this.router.navigate([path]);
     this.isUserMenuOpen = false;
   }
 

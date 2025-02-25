@@ -8,11 +8,12 @@ import { Observable } from 'rxjs';
   selector: 'app-custom-autocomplete',
   standalone: false,
   templateUrl: './custom-autocomplete.component.html',
-  styleUrls: ['./custom-autocomplete.component.css']
+  styleUrls: ['./custom-autocomplete.component.css'],
 })
 export class CustomAutocompleteComponent {
   @Input() placeholder: string = 'Search...';
   @Input() options: string[] = [];
+  @Input() className: string = '';
   @Output() selectedOption = new EventEmitter<string>();
 
   myControl = new FormControl('');
@@ -25,13 +26,13 @@ export class CustomAutocompleteComponent {
       startWith(''),
       debounceTime(300),
       distinctUntilChanged(),
-      map(value => this._filter(value || ''))
+      map((value) => this._filter(value || ''))
     );
   }
 
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
-    return this.options.filter(option => option.toLowerCase().includes(filterValue));
+    return this.options.filter((option) => option.toLowerCase().includes(filterValue));
   }
 
   onSelection(option: string) {

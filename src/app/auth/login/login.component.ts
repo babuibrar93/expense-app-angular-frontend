@@ -20,8 +20,16 @@ export class LoginComponent implements OnInit {
   isLoading$!: Observable<boolean>;
 
   private readonly formConfig = {
-    email: { value: '', validators: [Validators.required, Validators.email] },
-    password: { value: '', validators: [Validators.required, Validators.minLength(6)] },
+    email: {
+      value: 'user@example.com',
+      disabled: false,
+      validators: [Validators.required, Validators.email],
+    },
+    password: {
+      value: 'StrongP@ssw0rd!',
+      disabled: false,
+      validators: [Validators.required, Validators.minLength(6)],
+    },
   };
 
   constructor(

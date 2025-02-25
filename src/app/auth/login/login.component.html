@@ -14,7 +14,7 @@
       class="flex flex-col gap-4 w-full max-w-sm bg-white p-8 rounded-lg shadow-2xl border border-gray-200"
     >
       <div>
-        <h2>Login Here</h2>
+        <h2 class="text-center">Login Here</h2>
         <p class="text-primary text-center">Enter your credentials to get your account</p>
       </div>
       <hr class="flex-1 border-t border-gray-300" />
@@ -44,7 +44,7 @@
         <app-custom-button
           label="Login"
           [type]="'submit'"
-          customClass="w-full"
+          customClass="w-full secondary-background"
           [isLoading]="(isLoading$ | async) ?? false"
         ></app-custom-button>
         <!-- <app-custom-loader></app-custom-loader> -->

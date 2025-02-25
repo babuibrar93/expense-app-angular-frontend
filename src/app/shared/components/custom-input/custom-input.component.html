@@ -1,4 +1,4 @@
-<div class="max-w-md mx-auto">
+<div class="w-full">
   <!-- Regular Input -->
   <div *ngIf="!isTextArea" class="relative flex flex-col gap-1">
     <label [for]="label" class="text-primary">
@@ -11,13 +11,27 @@
       [id]="label"
       class="input text-primary items-center"
       [placeholder]="placeholder"
-      [disabled]="disabled"
+      *ngIf="formControl; else noFormControlInput"
       [formControl]="formControl"
       (blur)="onTouched()"
     />
 
+    <ng-template #noFormControlInput>
+      <input
+        [type]="showPassword ? 'text' : type"
+        [id]="label"
+        class="input text-primary items-center"
+        [placeholder]="placeholder"
+        [disabled]="disabled"
+      />
+    </ng-template>
+
     <!-- Show/Hide Password Toggle -->
-    <div *ngIf="type === 'password'" (click)="togglePassword()" class="absolute right-5 top-11 cursor-pointer">
+    <div
+      *ngIf="type === 'password'"
+      (click)="togglePassword()"
+      class="absolute right-5 top-[37px] cursor-pointer"
+    >
       <i [ngClass]="showPassword ? 'fa fa-eye-slash' : 'fa fa-eye'" aria-hidden="true"></i>
     </div>
 
@@ -39,10 +53,20 @@
       rows="4"
       class="input text-primary"
       [placeholder]="placeholder"
-      [disabled]="disabled"
+      *ngIf="formControl; else noFormControlTextarea"
       [formControl]="formControl"
       (blur)="onTouched()"
     ></textarea>
+
+    <ng-template #noFormControlTextarea>
+      <textarea
+        [id]="label"
+        rows="4"
+        class="input text-primary"
+        [placeholder]="placeholder"
+        [disabled]="disabled"
+      ></textarea>
+    </ng-template>
 
     <!-- Validation Messages -->
     <div *ngIf="showError" class="text-red-500 text-sm">

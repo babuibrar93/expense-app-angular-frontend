@@ -1,4 +1,4 @@
-<div class="relative w-80 mx-auto cursor-pointer">
+<div [class]="className">
   <!-- Custom Mat Form Field Styling -->
   <mat-form-field class="w-full custom-mat-field">
     <mat-label class="text-primary">{{ placeholder }}</mat-label>
@@ -10,10 +10,12 @@
       (focus)="autocompleteTrigger.openPanel()"
       class="focus:outline-none w-full text-gray-900"
     />
-    
-    <!-- Arrow Down Icon -->
-    <i class="fa fa-chevron-down absolute right-4 top-1/2 transform -translate-y-1/2 text-primar" aria-hidden="true"></i>
 
+    <!-- Arrow Down Icon -->
+    <i
+      class="fa fa-chevron-down absolute right-4 top-1/2 transform -translate-y-1/2 text-primar"
+      aria-hidden="true"
+    ></i>
 
     <mat-autocomplete
       #auto="matAutocomplete"

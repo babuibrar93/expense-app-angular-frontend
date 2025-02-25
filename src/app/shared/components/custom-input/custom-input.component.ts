@@ -22,18 +22,16 @@ export class CustomInputComponent implements ControlValueAccessor {
   @Input() required: boolean = false;
   @Input() disabled: boolean = false;
   @Input() isTextArea: boolean = false;
-  @Input() formControl!: FormControl;
+  @Input() formControl?: FormControl;
 
   showPassword: boolean = false;
-
-  constructor() {}
 
   onChange: (value: string) => void = () => {};
   onTouched: () => void = () => {};
 
   writeValue(value: string | null): void {
-    if (value !== null) {
-      this.formControl?.setValue(value, { emitEvent: false });
+    if (this.formControl && value !== null) {
+      this.formControl.setValue(value, { emitEvent: false });
     }
   }
 
@@ -74,6 +72,6 @@ export class CustomInputComponent implements ControlValueAccessor {
 
   // Check if there's an error to display
   get showError(): boolean {
-    return this.formControl && this.formControl.touched && this.formControl.invalid;
+    return !!this.formControl && this.formControl.touched && this.formControl.invalid;
   }
 }

@@ -1,0 +1,137 @@
+<div class="min-h-screen p-6 bg-gray-100">
+  <app-custom-modal
+    [isOpen]="modalVisible"
+    title="Add Organization"
+    modalSize="large"
+    (close)="closeModal()"
+    [showFooter]="true"
+  >
+    <app-create-organization></app-create-organization>
+  </app-custom-modal>
+
+  <!-- Dashboard Heading -->
+  <div class="mb-6 flex items-center justify-between">
+    <h3 class="text-2xl font-semibold text-gray-800">Super Admin Dashboard</h3>
+    <app-custom-button
+      label="Add Organization"
+      (clicked)="openModal()"
+      customClass="px-5 py-2 secondary-background text-white rounded-lg shadow-md transition"
+    ></app-custom-button>
+  </div>
+
+  <!-- Quick Stats -->
+  <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
+    <div
+      *ngFor="let stat of statsData"
+      class="bg-white p-5 rounded-lg shadow-md flex items-center hover:shadow-lg transition"
+    >
+      <div class="w-14 h-14 flex items-center justify-center rounded-full bg-blue-100">
+        <img [src]="stat.icon" alt="icon" class="w-7 h-7" />
+      </div>
+      <div class="ml-4">
+        <p class="text-sm text-primary">{{ stat.label }}</p>
+        <p class="text-3xl font-semibold text-gray-800">{{ stat.value }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Sections -->
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <!-- Recent Organizations -->
+    <div
+      class="flex flex-col lg:col-span-2 bg-white p-6 rounded-xl shadow-lg border border-gray-200"
+    >
+      <div class="flex justify-between items-center">
+        <h4 class="">Recent Organizations</h4>
+        <p
+          (click)="router.navigate(['/organizations'])"
+          class="text-tertiary underline cursor-pointer"
+        >
+          View all
+        </p>
+      </div>
+
+      <!-- Loader -->
+      <div *ngIf="loadingOrgs" class="flex justify-center p-4">
+        <div class="animate-spin rounded-full h-6 w-6 border-t-2 border-blue-500"></div>
+      </div>
+
+      <!-- Empty State -->
+      <div *ngIf="!loadingOrgs && recentOrgs.length === 0" class="text-primary text-center py-4">
+        No organizations found.
+      </div>
+
+      <!-- Organization List -->
+      <div class="space-y-4">
+        <div
+          *ngFor="let org of recentOrgs"
+          class="flex items-center justify-between p-4 bg-gray-50 rounded-lg shadow-sm border border-gray-300 hover:shadow-md transition transform"
+        >
+          <div class="flex items-center">
+            <img src="/svg/organization.svg" class="w-10 h-10 text-primary" alt="business icon" />
+            <div class="ml-4">
+              <p class="font-medium text-gray-900 text-lg">{{ org.name }}</p>
+              <p class="text-sm text-primary">Added: {{ org.date }}</p>
+            </div>
+          </div>
+          <app-custom-button
+            label="View Details"
+            (clicked)="handleViewOrganization(org)"
+            customClass="secondary-background text-white px-4 py-2 rounded-lg shadow-md transition"
+          ></app-custom-button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recent Activities -->
+    <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-200">
+      <h4 class="text-xl font-semibold text-gray-800 mb-4">Recent Activities</h4>
+
+      <!-- Loader -->
+      <div *ngIf="loadingActivities" class="flex justify-center p-4">
+        <div class="animate-spin rounded-full h-6 w-6 border-t-2 border-blue-500"></div>
+      </div>
+
+      <!-- Empty State -->
+      <div
+        *ngIf="!loadingActivities && activities.length === 0"
+        class="text-primary text-center py-4"
+      >
+        No recent activities.
+      </div>
+
+      <!-- Activity List -->
+      <div class="space-y-4">
+        <div
+          *ngFor="let activity of activities"
+          class="flex items-center p-4 bg-gray-50 rounded-lg shadow-sm border border-gray-300 hover:shadow-md transition transform"
+        >
+          <img [src]="activity.icon" alt="icon" class="w-9 h-9" />
+          <div class="ml-4">
+            <p class="text-base text-gray-900">{{ activity.text }}</p>
+            <p class="text-xs text-primary">{{ activity.time }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- System Overview -->
+  <div class="bg-white p-6 rounded-xl shadow-md mt-6">
+    <h4 class="text-xl font-semibold text-gray-800">System Overview</h4>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+      <div
+        *ngFor="let stat of systemOverview"
+        class="p-5 bg-gray-50 rounded-lg shadow-sm border border-gray-300 flex items-center hover:shadow-md transition transform"
+      >
+        <div class="w-14 h-14 flex items-center justify-center rounded-full bg-blue-100">
+          <img [src]="stat.icon" alt="icon" class="w-8 h-8" />
+        </div>
+        <div class="ml-4">
+          <p class="text-sm text-primary">{{ stat.label }}</p>
+          <p class="text-2xl font-semibold text-gray-800">{{ stat.value }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,8 +1,9 @@
 <button
+  class="px-4 py-2"
   [ngClass]="[
-    'disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center justify-center',
     defaultClasses,
-    customClass
+    customClass,
+    'disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center justify-center'
   ]"
   [disabled]="disabled || isLoading"
   (click)="onClick($event)"

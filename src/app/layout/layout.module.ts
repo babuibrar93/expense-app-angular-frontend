@@ -1,16 +1,14 @@
-import { NgModule } from '@angular/core';
-
-import { SharedModule } from '../shared/shared.module';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { AuthLayoutComponent } from './auth-layout/auth-layout.component';
+import { DefaultLayoutComponent } from './default-layout/default-layout.component';
 import { HeaderComponent } from './header/header.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { WelcomePanelComponent } from './welcome-panel/welcome-panel.component';
-import { AuthLayoutComponent } from './auth-layout/auth-layout.component';
-import { DefaultLayoutComponent } from './default-layout/default-layout.component';
-import { RouterOutlet } from '@angular/router';
 
 @NgModule({
-  imports: [CommonModule, SharedModule, RouterOutlet],
+  imports: [CommonModule, RouterOutlet],
   exports: [HeaderComponent, SidebarComponent, WelcomePanelComponent],
   declarations: [
     HeaderComponent,

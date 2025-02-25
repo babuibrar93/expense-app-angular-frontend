@@ -4,7 +4,7 @@
   border-radius: 8px !important;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05) !important;
   transition: box-shadow 0.3s ease-in-out;
-  border: 1px solid gray;
+  border: 1px solid #D1D5DB !important;
 }
 
 /* Remove Material's default fill effect */

@@ -1,7 +1,16 @@
-<div>
-  <div>{{title()}}</div>
-  <app-header></app-header>
+<div class="layout">
+  <!-- HEADER (Fixed at Top) -->
+  <app-header class="header"></app-header>
 
-  <app-sidebar (sidebarToggle)="handleSidebarToggle($event)"></app-sidebar>
-  <router-outlet></router-outlet>
+  <div class="main-container">
+    <!-- SIDEBAR (Initially Open) -->
+    <app-sidebar class="sidebar" [class.closed]="isSidebarOpen"
+      (sidebarToggle)="handleSidebarToggle($event)"></app-sidebar>
+
+    <!-- CONTENT AREA (Shifts Based on Sidebar) -->
+    <div class="content" [class.sidebar-closed]="isSidebarOpen">
+      <!-- <app-super-admin></app-super-admin> -->
+      <router-outlet></router-outlet>
+    </div>
+  </div>
 </div>

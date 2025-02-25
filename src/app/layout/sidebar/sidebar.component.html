@@ -1,17 +1,12 @@
 <!-- Sidebar -->
 <aside
   [@sidebarState]="isSidebarOpen ? 'open' : 'closed'"
-  class="bg-blue-800 text-white h-screen fixed top-16 left-0 transition-all duration-300 flex flex-col overflow-hidden shadow-lg"
+  class="secondary-background text-secondary h-screen fixed top-16 left-0 transition-all duration-300 flex flex-col overflow-hidden shadow-lg"
 >
   <!-- Logo & Toggle Button -->
-  <div
-    class="flex items-center justify-between px-4 py-4 border-b border-gray-700"
-  >
+  <div class="flex items-center justify-between px-4 py-4 border-b border-gray-700">
     <span *ngIf="isSidebarOpen" class="text-lg font-bold">Expense App</span>
-    <button
-      (click)="toggleSidebar()"
-      class="text-gray-100 hover:text-gray-400 transition"
-    >
+    <button (click)="toggleSidebar()" class="text-gray-100 hover:text-gray-400 transition">
       <i
         [ngClass]="{
           ' fa-arrow-circle-left': isSidebarOpen,
@@ -28,14 +23,12 @@
       <div
         class="sidebar-item px-4 py-3 flex items-center cursor-pointer"
         [class.bg-blue-900]="activeModule === module.name"
-        (click)="module.subModules.length ? toggleSubMenu(module.name) : null"
+        (click)="navigate(module)"
       >
         <i [class]="module.icon" class="w-5 h-5 mr-4"></i>
-        <span *ngIf="isSidebarOpen" class="text-sm font-medium">{{
-          module.name
-        }}</span>
+        <span *ngIf="isSidebarOpen" class="text-sm font-medium">{{ module.name }}</span>
         <i
-          *ngIf="module.subModules.length && isSidebarOpen"
+          *ngIf="module.subModules?.length && isSidebarOpen"
           [ngClass]="{
             'fa-arrow-circle-down': activeModule !== module.name,
             'fa-arrow-circle-up': activeModule === module.name
@@ -44,14 +37,10 @@
           aria-hidden="true"
         ></i>
       </div>
-
+  
       <!-- Submodules -->
       <ul
-        *ngIf="
-          activeModule === module.name &&
-          module.subModules.length &&
-          isSidebarOpen
-        "
+        *ngIf="activeModule === module.name && module.subModules?.length && isSidebarOpen"
         class="ml-8 mt-2 space-y-2"
       >
         <li
@@ -64,6 +53,7 @@
       </ul>
     </li>
   </ul>
+  
 
   <!-- Footer -->
   <div class="p-4 border-t border-gray-700 text-gray-400 text-xs">

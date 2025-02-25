@@ -2,47 +2,76 @@
 
 /* Global Colors */
 :root {
-  --primary-color: #0a54f5; /* Dark Blue */
-  --secondary-color: #3b82f6; /* Lighter Blue */
+  --primary-color: #ffffff; /* Dark Blue */
+  --secondary-color: #4b5563; /* Dark Blue */
+  --tertiary-color: #1e40af; /* Dark Blue */
   --danger-color: #ef4444; /* Danger Color Red */
   --muted-color: #9ca3af; /* Muted Gray */
-  --background-color: #ffffff; /* Dark Background */
+
+  --primary-background-color: #ffffff; /* Dark Background */
+  --secondary-background-color: #1e40af; /* Dark Background */
   --card-bg-color: #ffffff; /* White Background for Cards */
-  --text-primary-color: #111111; /* Black Text for Primary */
-  --text-secondary-color: #ffffff; /* White Text for Secondary */
-  --text-tertiary-color: #0a54f5; /* Dark blue Text for tertiary */
+
+  --text-primary-color: #4b5563; /* White Text for Secondary */
+  --text-secondary-color: #ffffff; /* Black Text for Primary */
+  --text-tertiary-color: #1e40af; /* Dark blue Text for tertiary */
   --text-muted-color: #d1d5db; /* Light Gray Text */
+}
+
+.primary-background {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  color: var(--text-secondary-color);
+  background: var(--primary-background-color);
+}
+
+.secondary-background {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  color: var(--text-secondary-color);
+  background: var(--secondary-background-color);
+}
+
+.tertiary-background {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  background: var(--primary-background-color);
 }
 
 /* Custom Text Styles */
 .text-primary {
   color: var(--text-primary-color);
-  font-size: 1rem;
-  font-weight: 500;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
 }
 
 .text-secondary {
   color: var(--text-secondary-color);
-  font-size: 1rem;
-  font-weight: 500;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
 }
 
 .text-tertiary {
   color: var(--text-tertiary-color);
-  font-size: 1rem;
-  font-weight: 500;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
 }
 
 .text-danger {
   color: var(--danger-color);
-  font-size: 1rem;
-  font-weight: 500;
 }
 
 .text-muted {
   color: var(--muted-color);
-  font-size: 0.875rem;
+  font-size: 14px;
   font-weight: 400;
+  line-height: 20px;
 }
 
 .text-heading {
@@ -64,8 +93,9 @@
   color: white;
   padding: 0.75rem 1.25rem;
   border-radius: 8px;
-  font-weight: 500;
-  font-size: 1rem;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
   transition: background-color 0.3s ease;
   text-transform: uppercase;
 }
@@ -77,12 +107,11 @@
 .button-danger {
   background-color: var(--danger-color);
   color: white;
-  padding: 0.75rem 1.25rem;
   border-radius: 8px;
-  font-weight: 500;
-  font-size: 1rem;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
   transition: background-color 0.3s ease;
-  text-transform: uppercase;
 }
 
 .button-danger:hover {
@@ -93,9 +122,9 @@
 .input {
   width: 100%;
   padding: 0.75rem 1.25rem;
-  border: 1px solid #4b5563; /* Darker Border */
+  border: 1px solid #d1d5db;
   border-radius: 8px;
-  font-size: 1rem;
+  font-size: 14px;
   font-weight: 400;
   line-height: 1.5;
   transition: border-color 0.3s ease;
@@ -105,7 +134,7 @@
 
 .input:focus {
   outline: none;
-  border-color: var(--primary-color);
+  border-color: var(--secondary-color);
 }
 
 /* Card Styles */
@@ -133,7 +162,7 @@
 /* Navbar Link */
 .nav-link {
   color: var(--muted-color);
-  font-weight: 500;
+  font-weight: 400;
   font-size: 1rem;
   transition: color 0.3s ease;
 }
@@ -150,7 +179,9 @@
   padding: 0.75rem 1.5rem;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  font-size: 1rem;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
 }
 
 .sidebar-item:hover {
@@ -188,45 +219,39 @@ h1 {
   font-size: 2.25rem;
   font-weight: 700;
   line-height: 1.25;
-  text-align: center;
-  color: var(--primary-color);
+  color: var(--tertiary-color);
 }
 
 h2 {
   font-size: 1.875rem;
   font-weight: 600;
   line-height: 1.3;
-  text-align: center;
-  color: var(--primary-color);
+  color: var(--tertiary-color);
 }
 
 h3 {
   font-size: 1.5rem;
   font-weight: 600;
   line-height: 1.35;
-  text-align: center;
-  color: var(--primary-color);
+  color: var(--tertiary-color);
 }
 
 h4 {
   font-size: 1.25rem;
   font-weight: 600;
-  text-align: center;
-  color: var(--primary-color);
+  color: var(--tertiary-color);
 }
 
 h5 {
   font-size: 1.125rem;
-  font-weight: 500;
-  text-align: center;
-  color: var(--primary-color);
+  font-weight: 400;
+  color: var(--tertiary-color);
 }
 
 h6 {
   font-size: 1rem;
-  font-weight: 500;
-  text-align: center;
-  color: var(--primary-color);
+  font-weight: 400;
+  color: var(--tertiary-color);
 }
 
 a,
@@ -241,8 +266,8 @@ button {
 }
 
 .success-snackbar {
-  background-color: var(--primary-color);
-  color: black;
+  background-color: var(--tertiary-color);
+  color: white;
   border-radius: 20px;
 }
 
@@ -255,4 +280,164 @@ button {
   color: white !important;
   padding: 1px 10px !important;
   border-left: 1px solid white !important;
+}
+
+/* Override Material Table Styles */
+.custom-table {
+  background-color: white !important;
+  color: #1e3a8a !important;
+  border-radius: 10px 10px 0 0 !important;
+  overflow: hidden !important;
+  border: 1px solid #d1d5db !important;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
+  table-layout: fixed;
+}
+
+/* Table Header */
+.custom-table th {
+  background-color: var(--secondary-background-color) !important;
+  color: white !important;
+  font-weight: bold;
+  padding: 12px !important;
+  text-align: left !important;
+  white-space: nowrap;
+}
+
+/* Table Rows */
+.custom-table td {
+  color: var(--text-primary-color);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  padding: 12px !important;
+  border-bottom: 1px solid #ddd !important;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* First and Last Row Styling */
+.custom-table tr:first-child td {
+  border-top-left-radius: 10px !important;
+  border-top-right-radius: 10px !important;
+}
+.custom-table tr:last-child td {
+  border-bottom-left-radius: 10px !important;
+  border-bottom-right-radius: 10px !important;
+}
+
+/* Hover Effect */
+.custom-table tr:hover {
+  background-color: #f1f5ff !important;
+  transition: background-color 0.3s ease-in-out;
+}
+
+/* Sorting Arrow Color */
+.mat-sort-header-arrow {
+  color: white !important;
+}
+
+/* Paginator Styles */
+.mat-paginator {
+  background-color: var(--primary-background-color) !important;
+  color: var(--text-primary-color);
+  font-size: 1rem;
+  font-weight: 400;
+  padding: 10px !important;
+  border-radius: 0 0 10px 10px !important;
+  border-top: 1px solid #d1d5db !important;
+  position: sticky;
+  bottom: 0;
+  z-index: 2;
+}
+
+/* Page Size Dropdown */
+.mat-mdc-select-trigger {
+  color: var(--text-primary-color);
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+/* Paginator Buttons */
+.mat-mdc-icon-button {
+  color: var(--background-color) !important;
+  border-radius: 5px !important;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.mat-mdc-icon-button:hover {
+  background-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+/* Dropdown Panel */
+.mat-mdc-select-panel {
+  background-color: white !important;
+  color: black !important;
+  border-radius: 8px !important;
+}
+
+/* Selected List Item */
+.mdc-list-item--selected {
+  background-color: var(--primary-background-color) !important;
+}
+
+.mdc-list-item--selected .mdc-list-item__primary-text {
+  color: var(--text-primary-color) !important;
+  font-weight: 800 !important;
+}
+
+/* Text Field Wrapper */
+.mat-mdc-text-field-wrapper.mdc-text-field {
+  border: none !important;
+  outline: none !important;
+}
+
+/* Table Wrapper */
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  padding: 10px;
+}
+
+/* Table Container */
+.table-container {
+  max-height: 400px;
+  overflow: auto;
+  padding: 20px 10px;
+  border-radius: 10px;
+}
+
+/* Fix Header Row */
+.custom-table thead {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background-color: var(--secondary-background-color);
+}
+
+/* Make Text Truncate for Long Content */
+.text-truncate {
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Wrap text inside a column if needed */
+.custom-table td.break-word {
+  white-space: normal;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+/* Actions Column: Prevents Shrinking */
+/* .custom-table td:last-child {
+  min-width: 120px;
+  text-align: center;
+} */
+
+.mat-mdc-paginator-container {
+  border-top: 1px solid #d1d5db !important;
+  padding: 20px 0 !important;
+  background: var(--primary-background-color) !important;
 }

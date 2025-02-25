@@ -6,30 +6,37 @@
   >
     <!-- Header -->
     <div class="modal-header">
-      <h3>{{ title }}</h3>
+      <p
+        [ngClass]="
+          title.includes('Delete')
+            ? 'text-danger text-2xl font-bold'
+            : 'text-[#1e40af] text-2xl font-bold'
+        "
+      >
+        {{ title }}
+      </p>
+
       <button *ngIf="showCloseButton" class="close-btn" (click)="closeModal()">
         <i class="fa fa-close" aria-hidden="true"></i>
-
       </button>
     </div>
 
-    <!-- Body -->
+    <!-- Body: Dynamic Content -->
     <div class="modal-body">
-      <p class="text-primary">{{ content }}</p>
       <ng-content></ng-content>
-      <!-- Allows injecting custom content -->
     </div>
 
     <!-- Footer -->
     <div *ngIf="showFooter" class="modal-footer">
       <app-custom-button
         label="Cancel"
-        customClass="bg-gray-300 !text-black"
+        customClass="text-primary tertiary-background border border-solid border-gray-300"
         (clicked)="closeModal()"
       ></app-custom-button>
       <app-custom-button
-        label="Confirm"
+        label="Save"
         (clicked)="closeModal()"
+        customClass="secondary-background"
       ></app-custom-button>
     </div>
   </div>

@@ -1,12 +1,17 @@
-import {
-  animate,
-  state,
-  style,
-  transition,
-  trigger,
-} from '@angular/animations';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, EventEmitter, Output } from '@angular/core';
+import { Router } from '@angular/router';
 
+interface SubModule {
+  name: string;
+}
+
+interface Module {
+  name: string;
+  icon: string;
+  route: string;
+  subModules?: SubModule[];
+}
 @Component({
   selector: 'app-sidebar',
   standalone: false,
@@ -27,23 +32,25 @@ export class SidebarComponent {
   // Create an event emitter to send data to the parent
   @Output() sidebarToggle = new EventEmitter<boolean>();
 
-  modules = [
-    {
-      name: 'Dashboard',
-      icon: 'fa fa-tachometer-alt',
-      subModules: [],
-    },
+  constructor(private readonly router: Router) {}
+
+  modules: Module[] = [
+    { name: 'Dashboard', icon: 'fa fa-tachometer-alt', route: '/' },
     {
       name: 'Reports',
       icon: 'fa fa-chart-line',
+      route: '/reports',
       subModules: [{ name: 'Sales' }, { name: 'Expenses' }],
     },
-    {
-      name: 'Settings',
-      icon: 'fa fa-cogs',
-      subModules: [],
-    },
+    { name: 'Settings', icon: 'fa fa-cogs', route: '/settings' },
   ];
+
+  navigate(module: Module) {
+    this.router.navigate([module.route]);
+    if (module.subModules?.length) {
+      this.toggleSubMenu(module.name);
+    }
+  }
 
   toggleSidebar() {
     this.isSidebarOpen = !this.isSidebarOpen;

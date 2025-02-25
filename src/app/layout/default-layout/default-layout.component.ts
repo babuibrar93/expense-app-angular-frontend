@@ -1,7 +1,6 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { ApiService } from '../../core/services/api.service';
 import { LocalStorageService } from '../../core/services/local-storage.service';
-import { IApiResponse } from '../../core/models/basic.interface';
 
 @Component({
   selector: 'app-default-layout',
@@ -24,7 +23,7 @@ export class DefaultLayoutComponent implements OnInit {
     }
   }
 
-  handleSidebarToggle(isSidebarOpen: boolean) {
-    this.isSidebarOpen = isSidebarOpen;
+  handleSidebarToggle(isOpen: boolean) {
+    this.isSidebarOpen = isOpen;
   }
 }

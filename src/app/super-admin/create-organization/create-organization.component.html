@@ -1,0 +1,24 @@
+<!-- Main Form Content -->
+<div class="flex flex-col gap-4 py-4">
+  <!-- Input Grid -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-6">
+    <app-custom-input
+      label="Organization Name"
+      placeholder="Enter organization name"
+      [required]="true"
+    >
+    </app-custom-input>
+
+    <app-custom-input label="Contact Email" placeholder="email@example.com" [required]="true">
+    </app-custom-input>
+
+    <app-custom-input label="Contact Phone" placeholder="03012345678"> </app-custom-input>
+    <app-custom-input label="Adress" placeholder="Lahore"> </app-custom-input>
+  </div>
+
+  <!-- Description Field -->
+  <div class="w-full">
+    <app-custom-input label="Description" placeholder="Write description" [isTextArea]="true">
+    </app-custom-input>
+  </div>
+</div>

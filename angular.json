@@ -6,7 +6,7 @@
     "tset": {
       "projectType": "application",
       "schematics": {
-        "@schematics/angular:component": {
+        "@schematics/angular:component": {  
           "standalone": false
         },
         "@schematics/angular:directive": {
