@@ -27,6 +27,10 @@ const routes: Routes = [
           ),
       },
       {
+        path: 'users',
+        loadChildren: () => import('./user/user.module').then((m) => m.UserModule),
+      },
+      {
         path: '', // Example: Dashboard route inside default layout
         loadChildren: () =>
           import('./super-admin/super-admin.module').then((m) => m.SuperAdminModule),

@@ -36,13 +36,14 @@ export class SidebarComponent {
 
   modules: Module[] = [
     { name: 'Dashboard', icon: 'fa fa-tachometer-alt', route: '/' },
-    {
-      name: 'Reports',
-      icon: 'fa fa-chart-line',
-      route: '/reports',
-      subModules: [{ name: 'Sales' }, { name: 'Expenses' }],
-    },
-    { name: 'Settings', icon: 'fa fa-cogs', route: '/settings' },
+    // {
+    //   name: 'Reports',
+    //   icon: 'fa fa-chart-line',
+    //   route: '/reports',
+    //   subModules: [{ name: 'Sales' }, { name: 'Expenses' }],
+    // },
+    { name: 'Users', icon: 'fa fa-users', route: '/users' },
+    { name: 'Organizations', icon: 'fa fa-sitemap', route: '/organizations' },
   ];
 
   navigate(module: Module) {

@@ -2,24 +2,21 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-organizations',
+  selector: 'app-all-users',
   standalone: false,
-  templateUrl: './organizations.component.html',
-  styleUrl: './organizations.component.css',
+  templateUrl: './users.component.html',
+  styleUrl: './users.component.css',
 })
-export class OrganizationsComponent {
+export class AllUsersComponent {
   searchQuery = '';
   modalVisible = false;
   deleteModalVisible = false;
-  organizationModalText = 'Add new Organization';
 
   constructor(private readonly router: Router) {}
 
   columns = [
-    { key: 'name', label: 'Organization Name', isSortable: true },
+    { key: 'name', label: 'User Name', isSortable: true },
     { key: 'email', label: 'Email', isSortable: true },
-    { key: 'phone', label: 'Phone', isSortable: true },
-    { key: 'users', label: 'Number of users', isSortable: false },
     { key: 'createdAt', label: 'Created At', isSortable: true },
     { key: 'updatedAt', label: 'Updated At', isSortable: true },
   ];
@@ -75,10 +72,10 @@ export class OrganizationsComponent {
     },
   ];
 
-  filteredOrganizations = [...this.data];
+  filteredUsers = [...this.data];
 
   actions = [
-    { icon: 'edit', tooltip: 'Edit', action: (row: any) => this.editOrganization(row) },
+    { icon: 'edit', tooltip: 'Edit', action: (row: any) => {} },
     {
       icon: 'visibility',
       tooltip: 'View Details',
@@ -93,23 +90,12 @@ export class OrganizationsComponent {
     },
   ];
 
-  openModal() {
-    this.modalVisible = true;
-    this.organizationModalText = 'Add new Organization';
-  }
-
   closeModal() {
     this.modalVisible = false;
   }
 
   closeDeleteModal() {
     this.deleteModalVisible = false;
-  }
-
-  editOrganization(org: any) {
-    console.log('Editing:', org);
-    this.modalVisible = true;
-    this.organizationModalText = 'Edit Organization';
   }
 
   deleteOrganization(org: any) {

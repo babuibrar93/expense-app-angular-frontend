@@ -4,12 +4,14 @@
 
   <div class="main-container">
     <!-- SIDEBAR (Initially Open) -->
-    <app-sidebar class="sidebar" [class.closed]="isSidebarOpen"
-      (sidebarToggle)="handleSidebarToggle($event)"></app-sidebar>
+    <app-sidebar
+      class="sidebar"
+      [class.closed]="isSidebarOpen"
+      (sidebarToggle)="handleSidebarToggle($event)"
+    ></app-sidebar>
 
     <!-- CONTENT AREA (Shifts Based on Sidebar) -->
     <div class="content" [class.sidebar-closed]="isSidebarOpen">
-      <!-- <app-super-admin></app-super-admin> -->
       <router-outlet></router-outlet>
     </div>
   </div>
