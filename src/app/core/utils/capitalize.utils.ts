@@ -1,4 +1,4 @@
-export function CapitalizeObjectKeysPipe(object: any): any {
+export function CapitalizeObjectKeys(object: any): any {
   if (!object || typeof object !== 'object') return null;
 
   return Object.fromEntries(

@@ -1,11 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { API_ENDPOINTS } from '../../core/constants/api-endpoint.constant';
 import { IApiResponse } from '../../core/models/basic.interface';
 import { IOrganization } from '../../core/models/organization.interface';
 import { ISuperAdminStats } from '../../core/models/super-admin-dashboard.interface';
 import { ApiService } from '../../core/services/api.service';
-import { CreateOrganizationComponent } from '../create-organization/create-organization.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -14,8 +13,6 @@ import { CreateOrganizationComponent } from '../create-organization/create-organ
   styleUrl: './dashboard.component.css',
 })
 export class DashboardComponent implements OnInit {
-  @ViewChild(CreateOrganizationComponent) createOrgForm!: CreateOrganizationComponent;
-
   superAdminStats: any = [];
   modalVisible = false;
   loadingOrgs = false;
@@ -26,14 +23,14 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchAllOrganizations();
-    this.fetchSuperAdminStats();
+    // this.fetchSuperAdminStats();
   }
 
   /** Fetches the list of organizations */
   private fetchAllOrganizations(): void {
     this.loadingOrgs = true;
     this.apiService
-      .get<IApiResponse>(API_ENDPOINTS.ORGANIZATION.FETCH_ALL_ORGANIZATION, {
+      .get<IApiResponse>(API_ENDPOINTS.ORGANIZATION.FETCH_ALL_ORGANIZATION_USERS, {
         page: 1,
         limit: 3,
         sortBy: 'CreatedAt',
@@ -42,22 +39,22 @@ export class DashboardComponent implements OnInit {
       .subscribe((response) => {
         this.recentOrganizations = response.data.organizations;
         this.loadingOrgs = false;
-        this.fetchSuperAdminStats();
+        // this.fetchSuperAdminStats();
       });
   }
 
-  private fetchSuperAdminStats() {
-    this.apiService
-      .get<IApiResponse>(API_ENDPOINTS.USER.SUPER_ADMIN_STATS)
-      .subscribe((response) => {
-        this.superAdminStats = this.superAdminStatsData(response?.data);
-      });
-  }
+  // private fetchSuperAdminStats() {
+  //   this.apiService
+  //     .get<IApiResponse>(API_ENDPOINTS.USER.SUPER_ADMIN_STATS)
+  //     .subscribe((response) => {
+  //       this.superAdminStats = this.superAdminStatsData(response?.data);
+  //     });
+  // }
 
   private superAdminStatsData(data: ISuperAdminStats) {
     return [
       {
-        label: 'Total Organizations',
+        label: 'Total Users',
         value: data.totalOrganizations || 0,
         icon: '/svg/organization.svg',
       },
@@ -67,12 +64,32 @@ export class DashboardComponent implements OnInit {
         icon: '/svg/admin.svg',
       },
       {
-        label: 'Total Users',
+        label: 'Global Roles',
         value: data.totalUsers || 0,
         icon: '/svg/users.svg',
       },
       {
-        label: 'Global Roles',
+        label: 'Total Expense',
+        value: data.totalGlobalRoles || 0,
+        icon: '/svg/role.svg',
+      },
+      {
+        label: 'Total Revenue',
+        value: data.totalGlobalRoles || 0,
+        icon: '/svg/role.svg',
+      },
+      {
+        label: 'Approved Expense',
+        value: data.totalGlobalRoles || 0,
+        icon: '/svg/role.svg',
+      },
+      {
+        label: 'Pending Expense',
+        value: data.totalGlobalRoles || 0,
+        icon: '/svg/role.svg',
+      },
+      {
+        label: 'Rejected Expense',
         value: data.totalGlobalRoles || 0,
         icon: '/svg/role.svg',
       },
@@ -89,11 +106,6 @@ export class DashboardComponent implements OnInit {
   }
 
   /** Triggers save on the child form */
-  handleSaveOrganization(): void {
-    if (this.createOrgForm) {
-      this.createOrgForm.saveOrganization();
-    }
-  }
 
   /** Handles form submission success */
   handleFormSuccess(): void {

@@ -1,10 +1,16 @@
-/* Force white background on the input field */
 ::ng-deep .mat-mdc-text-field-wrapper.mdc-text-field {
-  background-color: #ffffff !important;
   border-radius: 8px !important;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05) !important;
   transition: box-shadow 0.3s ease-in-out;
-  border: 1px solid #D1D5DB !important;
+  border: 1px solid #d1d5db !important;
+  font-size: 14px !important;
+  font-weight: 400 !important;
+  line-height: 1.5 !important;
+  width: 100% !important;
+  background: #f9fafb !important;
+  border: 1px solid #d1d5db !important;
+  transition: border-color 0.3s ease !important;
+  color: var(--text-primary-color) !important;
 }
 
 /* Remove Material's default fill effect */

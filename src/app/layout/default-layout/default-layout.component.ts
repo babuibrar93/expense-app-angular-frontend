@@ -15,6 +15,10 @@ export class DefaultLayoutComponent implements OnInit {
   constructor(private apiService: ApiService, private localStorageService: LocalStorageService) {}
 
   ngOnInit(): void {
+    this.fetchTokenFromCookies();
+  }
+
+  fetchTokenFromCookies() {
     // document.cookie;
     if (!this.localStorageService.hasKey('token')) {
       this.apiService

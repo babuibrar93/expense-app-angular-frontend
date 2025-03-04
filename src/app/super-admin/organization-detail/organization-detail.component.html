@@ -4,9 +4,13 @@
     title="Edit Organization"
     modalSize="large"
     (close)="closeModal()"
+    (save)="handleSaveOrganization()"
     [showFooter]="true"
   >
-    <app-create-organization></app-create-organization>
+    <app-create-organization
+      [organizationDetail]="organizationDetail"
+      (formSubmitted)="handleFormSuccess()"
+    ></app-create-organization>
   </app-custom-modal>
 
   <app-custom-modal
@@ -28,11 +32,15 @@
     title="Delete Organization"
     modalSize="medium"
     (close)="closeOrganizationDeleteModal()"
+    (save)="hanldeDeleteOrganization()"
     [showFooter]="true"
   >
     <p class="text-lg text-gray-700 font-semibold">
       Are you sure you want to delete
-      <span class="text-danger font-bold">name</span>?
+      <span *ngIf="organizationDetail" class="text-danger font-bold">{{
+        organizationDetail.Name || ''
+      }}</span>
+      ?
     </p>
     <p class="text-gray-500 text-sm">This action cannot be undone.</p>
   </app-custom-modal>
@@ -59,7 +67,9 @@
             </svg>
           </div>
           <div>
-            <h1 class="text-2xl font-bold text-gray-800">Tech Solutions Inc.</h1>
+            <h1 *ngIf="organizationDetail" class="text-2xl font-bold text-gray-800">
+              {{ organizationDetail.Name }}
+            </h1>
           </div>
         </div>
         <div class="flex gap-4">
@@ -99,7 +109,7 @@
             </svg>
             <div>
               <p class="text-sm text-gray-500">Email</p>
-              <p class="font-medium">{{ 'info@techsolutions.com' }}</p>
+              <p *ngIf="organizationDetail" class="font-medium">{{ organizationDetail.Email }}</p>
             </div>
           </div>
         </div>
@@ -121,7 +131,7 @@
             </svg>
             <div>
               <p class="text-sm text-gray-500">Phone</p>
-              <p class="font-medium">+1 (555) 123-4567</p>
+              <p *ngIf="organizationDetail" class="font-medium">{{ organizationDetail.Phone }}</p>
             </div>
           </div>
         </div>
@@ -143,7 +153,9 @@
             </svg>
             <div>
               <p class="text-sm text-gray-500">Total Users</p>
-              <p class="font-medium">48 Members</p>
+              <p *ngIf="organizationDetail" class="font-medium">
+                {{ organizationDetail.UserOrganization?.length }}
+              </p>
             </div>
           </div>
         </div>
@@ -152,15 +164,17 @@
       <!-- Company Description Section -->
       <div class="bg-gray-50 rounded-xl p-6 mt-6">
         <div class="text-lg font-semibold text-gray-700">Company Description</div>
-        <p class="text-gray-600 text-sm leading-relaxed">
-          Tech Solutions Inc. is a leading software company providing innovative digital solutions
-          to businesses worldwide. Our team of expert developers, designers, and strategists work
-          together to deliver top-tier products that enhance productivity and efficiency.
+        <p *ngIf="organizationDetail" class="text-gray-600 text-sm leading-relaxed">
+          {{ organizationDetail.Description }}
         </p>
       </div>
     </div>
 
-    <div class="bg-white rounded-2xl shadow-lg p-8 w-full mx-auto">
+    <form
+      [formGroup]="registerForm"
+      (ngSubmit)="handleAddUser()"
+      class="bg-white rounded-2xl shadow-lg p-8 w-full mx-auto"
+    >
       <!-- Header Section -->
       <div class="flex justify-between items-center mb-6">
         <div>
@@ -171,7 +185,8 @@
         </div>
         <app-custom-button
           label="Add User"
-          (clicked)="openAddUserModal()"
+          [type]="'submit'"
+          [isLoading]="(isLoading$ | async) ?? false"
           customClass="px-6 py-2 secondary-background text-white rounded-lg shadow-md transition"
         >
         </app-custom-button>
@@ -182,26 +197,46 @@
         <p class="text-gray-600 text-sm mb-4">
           Select a user and define their role in the organization.
         </p>
-        <div class="flex flex-wrap gap-4">
+        <div class="grid grid-cols-3 gap-4">
+          <app-custom-input
+            label="Full Name"
+            placeholder="John Doe"
+            [required]="true"
+            [formControl]="getControl('fullName')"
+          ></app-custom-input>
+
+          <app-custom-input
+            label="Email"
+            placeholder="user@example.com"
+            [required]="true"
+            [formControl]="getControl('email')"
+          ></app-custom-input>
+
+          <app-custom-input
+            label="Password"
+            placeholder="*******"
+            [required]="true"
+            type="password"
+            [formControl]="getControl('password')"
+          ></app-custom-input>
+
           <app-custom-autocomplete
-            [options]="['John Doe', 'Jane Smith', 'Michael Lee', 'Alice Brown']"
-            placeholder="Select a User"
-            [className]="'w-full min-w-80'"
-          ></app-custom-autocomplete>
-          <app-custom-autocomplete
-            [options]="['Admin', 'Editor', 'User', 'Manager']"
+            [options]="roles"
             placeholder="Assign a Role"
-            [className]="'w-full min-w-80'"
+            (selectedOption)="handleRoleSelect($event)"
           ></app-custom-autocomplete>
         </div>
       </div>
-    </div>
+    </form>
 
-    <div class="bg-white rounded-2xl shadow-lg p-6 w-full mx-auto">
+    <div
+      *ngIf="organizationDetail && organizationDetail.UserOrganization?.length"
+      class="bg-white rounded-2xl shadow-lg p-6 w-full mx-auto"
+    >
       <app-custom-table
         [title]="'User Management'"
         [columns]="columns"
-        [data]="data"
+        [data]="transformedData"
         [actions]="actions"
       ></app-custom-table>
     </div>

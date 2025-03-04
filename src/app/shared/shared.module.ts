@@ -27,7 +27,6 @@ import { CustomSlideToggleComponent } from './components/custom-slide-toggle/cus
 import { CustomTableComponent } from './components/custom-table/custom-table.component';
 import { DropdownComponent } from './components/dropdown/dropdown.component';
 import { OauthLoginComponent } from './components/oauth-login/oauth-login.component';
-import { AddUserToOrganizationModalComponent } from './components/add-user-to-organization-modal/add-user-to-organization-modal.component';
 
 @NgModule({
   imports: [
@@ -60,7 +59,6 @@ import { AddUserToOrganizationModalComponent } from './components/add-user-to-or
     CustomLoaderComponent,
     OauthLoginComponent,
     CustomTableComponent,
-    AddUserToOrganizationModalComponent,
   ],
   exports: [
     DropdownComponent,
@@ -74,7 +72,6 @@ import { AddUserToOrganizationModalComponent } from './components/add-user-to-or
     CustomLoaderComponent,
     OauthLoginComponent,
     CustomTableComponent,
-    AddUserToOrganizationModalComponent
   ],
 })
 export class SharedModule {}

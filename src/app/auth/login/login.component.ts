@@ -19,19 +19,6 @@ export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
   isLoading$!: Observable<boolean>;
 
-  private readonly formConfig = {
-    email: {
-      value: 'user@example.com',
-      disabled: false,
-      validators: [Validators.required, Validators.email],
-    },
-    password: {
-      value: 'StrongP@ssw0rd!',
-      disabled: false,
-      validators: [Validators.required, Validators.minLength(6)],
-    },
-  };
-
   constructor(
     private readonly router: Router,
     private readonly formService: FormService,
@@ -39,6 +26,19 @@ export class LoginComponent implements OnInit {
     private readonly loadingService: LoadingService,
     private readonly localStorageService: LocalStorageService
   ) {}
+
+  private readonly formConfig = {
+    email: {
+      value: 'superadmin@example.com',
+      disabled: false,
+      validators: [Validators.required, Validators.email],
+    },
+    password: {
+      value: 'SuperAdmin@123',
+      disabled: false,
+      validators: [Validators.required, Validators.minLength(6)],
+    },
+  };
 
   ngOnInit(): void {
     this.initializeForm();
@@ -50,12 +50,12 @@ export class LoginComponent implements OnInit {
   }
 
   control(controlName: string) {
-    return this.formService.controls[controlName];
+    return this.formService.getControl(this.loginForm, controlName);
   }
 
   onSubmit(): void {
     if (this.loginForm.invalid) {
-      this.formService.markFormGroupTouched(this.loginForm);
+      this.formService.markAllAsTouched(this.loginForm);
       return;
     }
 
@@ -63,6 +63,7 @@ export class LoginComponent implements OnInit {
       .post<IApiResponse>(API_ENDPOINTS.AUTH.LOGIN, this.loginForm.value)
       .subscribe((response) => {
         if (response?.data?.token) {
+          this.localStorageService.setItem('user', response.data.user);
           this.localStorageService.setItem('token', response.data.token);
           this.router.navigate(['/']);
         }

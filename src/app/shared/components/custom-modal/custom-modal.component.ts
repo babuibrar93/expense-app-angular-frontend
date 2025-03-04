@@ -15,8 +15,13 @@ export class CustomModalComponent {
   @Input() modalSize: 'small' | 'medium' | 'large' = 'medium';
 
   @Output() close = new EventEmitter<void>();
+  @Output() save = new EventEmitter<void>();
 
   closeModal() {
     this.close.emit();
+  }
+
+  saveModalData() {
+    this.save.emit();
   }
 }

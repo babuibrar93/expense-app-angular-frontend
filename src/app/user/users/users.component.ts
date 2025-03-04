@@ -75,10 +75,11 @@ export class AllUsersComponent {
   filteredUsers = [...this.data];
 
   actions = [
-    { icon: 'edit', tooltip: 'Edit', action: (row: any) => {} },
+    { icon: 'edit', tooltip: 'Edit', color: 'text-muted', action: (row: any) => {} },
     {
       icon: 'visibility',
       tooltip: 'View Details',
+      color: 'text-muted',
       action: (row: any) =>
         this.router.navigate(['/organization-detail'], { queryParams: { id: row.name } }),
     },

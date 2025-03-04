@@ -1,5 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { API_ENDPOINTS } from '../../core/constants/api-endpoint.constant';
+import { IApiResponse } from '../../core/models/basic.interface';
+import { IOrganization } from '../../core/models/organization.interface';
+import { DateFormatPipe } from '../../core/pipes/date.pipe';
+import { ApiService } from '../../core/services/api.service';
+import { CreateOrganizationComponent } from '../create-organization/create-organization.component';
 
 @Component({
   selector: 'app-organizations',
@@ -7,92 +13,64 @@ import { Router } from '@angular/router';
   templateUrl: './organizations.component.html',
   styleUrl: './organizations.component.css',
 })
-export class OrganizationsComponent {
+export class OrganizationsComponent implements OnInit {
+  /** Child component reference */
+  @ViewChild(CreateOrganizationComponent) createOrgForm!: CreateOrganizationComponent;
+
+  /** Component State Variables */
+  loadingOrgs = false;
   searchQuery = '';
   modalVisible = false;
   deleteModalVisible = false;
   organizationModalText = 'Add new Organization';
+  modifiedOrganizations: IOrganization[] = [];
+  organizationDetail!: IOrganization | any;
 
-  constructor(private readonly router: Router) {}
-
+  /** Table Configuration */
   columns = [
-    { key: 'name', label: 'Organization Name', isSortable: true },
-    { key: 'email', label: 'Email', isSortable: true },
-    { key: 'phone', label: 'Phone', isSortable: true },
-    { key: 'users', label: 'Number of users', isSortable: false },
-    { key: 'createdAt', label: 'Created At', isSortable: true },
-    { key: 'updatedAt', label: 'Updated At', isSortable: true },
+    { key: 'Name', label: 'Name', isSortable: true },
+    { key: 'Email', label: 'Email', isSortable: true },
+    { key: 'Phone', label: 'Phone', isSortable: true },
+    { key: 'Address', label: 'Address', isSortable: false },
+    { key: 'Users', label: 'Number of Users', isSortable: false },
+    { key: 'CreatedAt', label: 'Created At', isSortable: true },
   ];
-
-  data = [
-    {
-      name: 'Tech Solutions',
-      email: 'contact@techsolutions.com',
-      phone: '+1 234 567 890',
-      createdAt: '2024-01-10',
-      updatedAt: '2024-02-15',
-      users: 120,
-    },
-    {
-      name: 'InnovateX',
-      email: 'info@innovatex.com',
-      phone: '+44 789 654 321',
-      createdAt: '2023-11-05',
-      updatedAt: '2024-02-20',
-      users: 85,
-    },
-    {
-      name: 'SoftThrive',
-      email: 'support@softthrive.com',
-      phone: '+92 300 123 4567',
-      createdAt: '2023-06-18',
-      updatedAt: '2024-01-30',
-      users: 200,
-    },
-    {
-      name: 'NextGen Tech',
-      email: 'hello@nextgentech.com',
-      phone: '+33 678 432 109',
-      createdAt: '2022-12-22',
-      updatedAt: '2024-02-10',
-      users: 150,
-    },
-    {
-      name: 'CloudSync',
-      email: 'team@cloudsync.io',
-      phone: '+49 176 987 6543',
-      createdAt: '2021-08-15',
-      updatedAt: '2024-01-25',
-      users: 95,
-    },
-    {
-      name: 'AI Ventures',
-      email: 'contact@aiventures.ai',
-      phone: '+91 98765 43210',
-      createdAt: '2023-09-12',
-      updatedAt: '2024-02-05',
-      users: 60,
-    },
-  ];
-
-  filteredOrganizations = [...this.data];
 
   actions = [
-    { icon: 'edit', tooltip: 'Edit', action: (row: any) => this.editOrganization(row) },
+    {
+      icon: 'edit',
+      tooltip: 'Edit',
+      color: 'text-muted',
+      action: (row: IOrganization) => this.editOrganization(row),
+    },
     {
       icon: 'visibility',
       tooltip: 'View Details',
-      action: (row: any) =>
-        this.router.navigate(['/organization-detail'], { queryParams: { id: row.name } }),
+      color: 'text-muted',
+      action: (row: IOrganization) =>
+        this.router.navigate(['/organization-detail'], { queryParams: { id: row.Id } }),
     },
     {
       icon: 'delete',
       tooltip: 'Delete',
       color: 'text-danger',
-      action: (row: any) => this.deleteOrganization(row),
+      action: (row: IOrganization) => this.deleteOrganization(row),
     },
   ];
 
+  /** Dependency Injection */
+  constructor(
+    private readonly router: Router,
+    private readonly apiService: ApiService,
+    private readonly dateFormatPipe: DateFormatPipe
+  ) {}
+
+  /** Lifecycle Hooks */
+  ngOnInit(): void {
+    this.fetchAllOrganizations();
+  }
+
+  /** Event Handlers */
   openModal() {
     this.modalVisible = true;
     this.organizationModalText = 'Add new Organization';
@@ -100,20 +78,72 @@ export class OrganizationsComponent {
 
   closeModal() {
     this.modalVisible = false;
+    this.organizationDetail = {};
   }
 
   closeDeleteModal() {
     this.deleteModalVisible = false;
+    this.organizationDetail = {};
   }
 
-  editOrganization(org: any) {
-    console.log('Editing:', org);
+  editOrganization(org: IOrganization) {
     this.modalVisible = true;
+    this.organizationDetail = org;
     this.organizationModalText = 'Edit Organization';
   }
 
-  deleteOrganization(org: any) {
-    console.log('Deleting:', org);
+  deleteOrganization(org: IOrganization) {
+    this.organizationDetail = org;
     this.deleteModalVisible = true;
+  }
+
+  handleSaveOrganization(): void {
+    if (this.createOrgForm) {
+      this.createOrgForm.saveOrganization();
+    }
+  }
+
+  handleFormSuccess(): void {
+    this.modalVisible = false;
+    this.fetchAllOrganizations();
+  }
+
+  handleDeleteOrganization() {
+    if (this.organizationDetail) {
+      this.apiService
+        .delete(`${API_ENDPOINTS.ORGANIZATION.DELETE_ORGANIZATION}/${this.organizationDetail?.Id}`)
+        .subscribe(() => {
+          this.fetchAllOrganizations();
+          this.closeDeleteModal();
+        });
+    }
+  }
+
+  /** Service Calls */
+  private fetchAllOrganizations(): void {
+    this.loadingOrgs = true;
+    this.apiService
+      .get<IApiResponse>(API_ENDPOINTS.ORGANIZATION.FETCH_ALL_ORGANIZATION, {
+        sortBy: 'CreatedAt',
+        order: 'DESC',
+      })
+      .subscribe((response) => {
+        this.modifiedAllOrganizations(response.data?.organizations);
+        this.loadingOrgs = false;
+      });
+  }
+
+  /** Helper Methods */
+  private modifiedAllOrganizations(organizations: IOrganization[]) {
+    this.modifiedOrganizations = organizations?.map((organization) => ({
+      Id: organization.Id,
+      Name: organization.Name,
+      Email: organization.Email,
+      Phone: organization.Phone,
+      Address: organization.Address,
+      Description: organization.Description,
+      Users: organization.UserOrganization?.length,
+      CreatedAt: this.dateFormatPipe.transform(organization.CreatedAt),
+    }));
   }
 }

@@ -22,14 +22,14 @@
           label="Full Name"
           placeholder="John Doe"
           [required]="true"
-          [formControl]="control('fullName')"
+          [formControl]="getControl('fullName')"
         ></app-custom-input>
 
         <app-custom-input
           label="Email"
           placeholder="user@example.com"
           [required]="true"
-          [formControl]="control('email')"
+          [formControl]="getControl('email')"
         ></app-custom-input>
 
         <app-custom-input
@@ -37,7 +37,7 @@
           placeholder="*******"
           [required]="true"
           type="password"
-          [formControl]="control('password')"
+          [formControl]="getControl('password')"
         ></app-custom-input>
       </div>
 

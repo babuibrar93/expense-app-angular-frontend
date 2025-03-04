@@ -8,7 +8,7 @@ import {
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { catchError, finalize, tap } from 'rxjs/operators';
 import { LoadingService } from '../services/loading.service';
 import { SnackbarService } from '../services/snackbar.service';
 
@@ -17,28 +17,24 @@ export class ApiResponseInterceptor implements HttpInterceptor {
   constructor(private snackbarService: SnackbarService, private loadingService: LoadingService) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    // Start loading indicator
+    this.loadingService.setLoading(true);
+
     return next.handle(req).pipe(
-      // Handling successful responses
-      map((event: HttpEvent<any>) => {
-        this.loadingService.setLoading(true);
-        if (event instanceof HttpResponse) {
-          this.loadingService.setLoading(false);
-          if (event.body && event.body.success)
-            this.snackbarService.showSuccess(event.body.message);
+      tap((event: HttpEvent<any>) => {
+        if (event instanceof HttpResponse && event.body?.success && req.method !== 'GET') {
+          this.snackbarService.showSuccess(event.body.message);
         }
-        return event;
       }),
 
-      // Handling errors
-      catchError(({ error }: HttpErrorResponse) => {
+      catchError((error: HttpErrorResponse) => {
         this.loadingService.setLoading(false);
-        if (error) {
-          const errorMessage = error.message || 'Something went wrong!';
-          this.snackbarService.showError(errorMessage); // Show error message on snackbar
-        } else this.snackbarService.showError('Network error or server unreachable!');
+        const errorMessage = error?.error?.message || 'Something went wrong!';
+        this.snackbarService.showError(errorMessage);
+        return throwError(() => error); // Proper error re-throwing
+      }),
 
-        return throwError(error); // Re-throw the error
-      })
+      finalize(() => this.loadingService.setLoading(false)) // Ensure loading stops
     );
   }
 }

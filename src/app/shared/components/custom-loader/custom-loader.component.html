@@ -1,3 +1,14 @@
-<div  class="loading-overlay">
+<!-- <div  class="loading-overlay">
     <div class="spinner"></div>
-  </div>
+  </div> -->
+
+
+  <!-- Full-Screen Loader -->
+<div *ngIf="fullScreen" class="fixed inset-0 flex items-center justify-center bg-white bg-opacity-50 z-50">
+  <div class="animate-spin rounded-full border-t-2 border-{{ color }} h-{{ size }} w-{{ size }}"></div>
+</div>
+
+<!-- Inline Loader -->
+<div *ngIf="!fullScreen" class="flex justify-center p-4">
+  <div class="animate-spin rounded-full border-t-2 border-{{ color }} h-{{ size }} w-{{ size }}"></div>
+</div>

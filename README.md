@@ -98,7 +98,24 @@ expense-app-angular-frontend/
 1. Register/Login
 2. Manage Expenses
 3. Assign Roles & Permissions
-4. View Reports & Insights
+4. View Reports & Insights 
+
+
+Recommended Order for Angular Component Files
+   Imports (Angular core, third-party libraries, services, models, etc.)
+   Component Decorator (@Component) (Metadata like selector, template, and styles)
+   Class Properties (State Variables)
+   ViewChild/ContentChild declarations
+   Public properties (bound to the template)
+   Private properties (internal logic)
+   Constructor (Dependency Injection)
+   Lifecycle Hooks (ngOnInit, ngAfterViewInit, etc.)
+   Getters/Setters (if needed)
+   Event Handlers (click, input change, form submission, etc.)
+   Service Calls (API Requests)
+   Helper Methods (private methods for internal logic)
+   Modal/Dialog Handling (if applicable)
+   Cleanup (ngOnDestroy, unsubscribing from Observables, etc.)
 
 ## Contributing
 1. Fork the repo

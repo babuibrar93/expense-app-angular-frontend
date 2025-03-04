@@ -11,20 +11,11 @@
       [id]="label"
       class="input text-primary items-center"
       [placeholder]="placeholder"
-      *ngIf="formControl; else noFormControlInput"
       [formControl]="formControl"
       (blur)="onTouched()"
+      [attr.name]="name || label"
+      [disabled]="disabled"
     />
-
-    <ng-template #noFormControlInput>
-      <input
-        [type]="showPassword ? 'text' : type"
-        [id]="label"
-        class="input text-primary items-center"
-        [placeholder]="placeholder"
-        [disabled]="disabled"
-      />
-    </ng-template>
 
     <!-- Show/Hide Password Toggle -->
     <div
@@ -36,7 +27,7 @@
     </div>
 
     <!-- Validation Messages -->
-    <div *ngIf="showError" class="text-red-500 text-sm">
+    <div *ngIf="showError" class="text-red-500 text-sm ml-2">
       <small>{{ errorMessage }}</small>
     </div>
   </div>
@@ -53,23 +44,14 @@
       rows="4"
       class="input text-primary"
       [placeholder]="placeholder"
-      *ngIf="formControl; else noFormControlTextarea"
       [formControl]="formControl"
       (blur)="onTouched()"
+      [attr.name]="name || label"
+      [disabled]="disabled"
     ></textarea>
 
-    <ng-template #noFormControlTextarea>
-      <textarea
-        [id]="label"
-        rows="4"
-        class="input text-primary"
-        [placeholder]="placeholder"
-        [disabled]="disabled"
-      ></textarea>
-    </ng-template>
-
     <!-- Validation Messages -->
-    <div *ngIf="showError" class="text-red-500 text-sm">
+    <div *ngIf="showError" class="text-red-500 text-sm ml-2">
       <small>{{ errorMessage }}</small>
     </div>
   </div>

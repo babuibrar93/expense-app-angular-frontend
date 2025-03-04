@@ -1,4 +1,4 @@
-.loading-overlay {
+/* .loading-overlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -24,4 +24,15 @@
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
   }
-  
+   */
+
+/* Custom Spinner Animations */
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}

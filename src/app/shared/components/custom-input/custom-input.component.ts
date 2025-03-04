@@ -1,5 +1,5 @@
 import { Component, Input, forwardRef } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormControl } from '@angular/forms';
+import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
   selector: 'app-custom-input',
@@ -22,7 +22,7 @@ export class CustomInputComponent implements ControlValueAccessor {
   @Input() required: boolean = false;
   @Input() disabled: boolean = false;
   @Input() isTextArea: boolean = false;
-  @Input() formControl?: FormControl;
+  @Input() formControl: FormControl = new FormControl({ value: '', disabled: this.disabled });
 
   showPassword: boolean = false;
 
@@ -30,8 +30,8 @@ export class CustomInputComponent implements ControlValueAccessor {
   onTouched: () => void = () => {};
 
   writeValue(value: string | null): void {
-    if (this.formControl && value !== null) {
-      this.formControl.setValue(value, { emitEvent: false });
+    if (this.formControl && value !== this.formControl.value) {
+      this.formControl.setValue(value ?? '', { emitEvent: false });
     }
   }
 
@@ -48,9 +48,12 @@ export class CustomInputComponent implements ControlValueAccessor {
   }
 
   setDisabledState(isDisabled: boolean): void {
-    this.disabled = isDisabled;
-    if (this.formControl) {
-      isDisabled ? this.formControl.disable() : this.formControl.enable();
+    if (this.disabled !== isDisabled) {
+      // Prevent recursive calls
+      this.disabled = isDisabled;
+      if (this.formControl) {
+        this.formControl[isDisabled ? 'disable' : 'enable']({ emitEvent: false });
+      }
     }
   }
 

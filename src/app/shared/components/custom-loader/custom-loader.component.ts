@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-custom-loader',
@@ -7,5 +7,7 @@ import { Component } from '@angular/core';
   styleUrl: './custom-loader.component.css'
 })
 export class CustomLoaderComponent {
-
+  @Input() size: string = '6'; // Default size (h-6 w-6)
+  @Input() color: string = 'gray-400'; // Default color
+  @Input() fullScreen: boolean = false; // Full-screen loader option
 }

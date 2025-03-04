@@ -1,26 +1,39 @@
 import { Injectable } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { IFormControl } from '../models/basic.interface';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FormService {
-  controls: IFormControl = {};
   constructor(private fb: FormBuilder) {}
 
-  initializeForm(formConfig: any): FormGroup {
-    this.controls = {};
-    for (const key of Object.keys(formConfig)) {
-      const config = formConfig[key];
-      this.controls[key] = new FormControl(config.value || '', config.validators || []);
-    }
-    return this.fb.group(this.controls);
+  // Initialize form dynamically
+  initializeForm(config: any): FormGroup {
+    const formGroup: { [key: string]: FormControl } = {};
+    Object.keys(config).forEach((key) => {
+      formGroup[key] = new FormControl(
+        config[key].value || '',
+        config[key].validators || []
+      );
+    });
+
+    return this.fb.group(formGroup);
   }
 
-  markFormGroupTouched(group: FormGroup) {
-    Object.values(group.controls).forEach((control) => {
-      control.markAsTouched();
+  // Mark all fields as touched
+  markAllAsTouched(form: FormGroup) {
+    Object.keys(form.controls).forEach((key) => {
+      form.get(key)?.markAsTouched();
     });
+  }
+
+  // Reset form
+  resetForm(form: FormGroup) {
+    form.reset();
+  }
+
+  // Get form control dynamically
+  getControl(form: FormGroup, controlName: string): FormControl {
+    return form.get(controlName) as FormControl;
   }
 }

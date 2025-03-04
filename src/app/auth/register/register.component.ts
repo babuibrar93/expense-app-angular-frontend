@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { API_ENDPOINTS } from '../../core/constants/api-endpoint.constant';
@@ -18,9 +18,17 @@ export class RegisterComponent implements OnInit {
   isLoading$!: Observable<boolean>;
 
   private readonly formConfig = {
-    fullName: { value: '', validators: [Validators.required, Validators.minLength(6)] },
-    email: { value: '', validators: [Validators.required, Validators.email] },
-    password: { value: '', validators: [Validators.required, Validators.minLength(6)] },
+    fullName: {
+      value: '',
+      disabled: false,
+      validators: [Validators.required, Validators.minLength(6)],
+    },
+    email: { value: '', disabled: false, validators: [Validators.required, Validators.email] },
+    password: {
+      value: '',
+      disabled: false,
+      validators: [Validators.required, Validators.minLength(6)],
+    },
   };
 
   constructor(
@@ -40,13 +48,14 @@ export class RegisterComponent implements OnInit {
     this.registerForm = this.formService.initializeForm(this.formConfig);
   }
 
-  control(controlName: string) {
-    return this.formService.controls[controlName];
+  // Get form control dynamically in template
+  getControl(controlName: string): FormControl {
+    return this.formService.getControl(this.registerForm, controlName);
   }
 
   onSubmit(): void {
     if (this.registerForm.invalid) {
-      this.formService.markFormGroupTouched(this.registerForm);
+      this.formService.markAllAsTouched(this.registerForm);
       return;
     }
 

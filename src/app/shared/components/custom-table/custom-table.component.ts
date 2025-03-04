@@ -1,4 +1,12 @@
-import { Component, Input, ViewChild, AfterViewInit, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  ViewChild,
+  AfterViewInit,
+  OnInit,
+  SimpleChanges,
+  OnChanges,
+} from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -22,7 +30,7 @@ export interface TableAction {
   templateUrl: './custom-table.component.html',
   styleUrls: ['./custom-table.component.scss'],
 })
-export class CustomTableComponent implements OnInit, AfterViewInit {
+export class CustomTableComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() title: string = 'Table';
   @Input() columns: TableColumn[] = [];
   @Input() data: any[] = [];
@@ -44,6 +52,14 @@ export class CustomTableComponent implements OnInit, AfterViewInit {
     if (this.paginator && this.sort) {
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
+    }
+  }
+
+  // When a parent component updates an @Input() property of a child component, ngOnChanges is triggered.
+  // It receives a SimpleChanges object that contains information about the changed properties
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['data'] && !changes['data'].firstChange) {
+      this.dataSource.data = this.data; // Ensure table updates when data changes
     }
   }
 

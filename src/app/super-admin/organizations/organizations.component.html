@@ -5,9 +5,13 @@
     [title]="organizationModalText"
     modalSize="large"
     (close)="closeModal()"
+    (save)="handleSaveOrganization()"
     [showFooter]="true"
   >
-    <app-create-organization></app-create-organization>
+    <app-create-organization
+      [organizationDetail]="organizationDetail"
+      (formSubmitted)="handleFormSuccess()"
+    ></app-create-organization>
   </app-custom-modal>
 
   <!-- Delete Confirmation Modal -->
@@ -16,18 +20,25 @@
     title="Delete Organization"
     modalSize="medium"
     (close)="closeDeleteModal()"
+    (save)="handleDeleteOrganization()"
     [showFooter]="true"
   >
     <p class="text-lg text-gray-700 font-semibold">
       Are you sure you want to delete
-      <span class="text-danger font-bold">name</span>?
+      <span *ngIf="organizationDetail" class="text-danger font-bold">{{
+        organizationDetail.Name || ''
+      }}</span
+      >?
     </p>
     <p class="text-gray-500 text-sm">This action cannot be undone.</p>
   </app-custom-modal>
 
   <!-- Header Section -->
   <div class="flex justify-between items-center mb-6">
-    <h3 class="text-primary">Easily add, update, and manage your organizations.</h3>
+    <div class="flex flex-col">
+      <h3>Mange your organizations</h3>
+      <h3 class="text-primary">Easily add, update, and manage your organizations.</h3>
+    </div>
     <app-custom-button
       label="Add Organization"
       (clicked)="openModal()"
@@ -38,9 +49,9 @@
 
   <!-- Organization Table -->
   <app-custom-table
-    [title]="'Manage Organizations'"
+    [title]="'List of Organizations'"
     [columns]="columns"
-    [data]="filteredOrganizations"
+    [data]="modifiedOrganizations"
     [actions]="actions"
   ></app-custom-table>
 </div>

@@ -4,9 +4,10 @@
     title="Add Organization"
     modalSize="large"
     (close)="closeModal()"
+    (save)="handleSaveOrganization()"
     [showFooter]="true"
   >
-    <app-create-organization></app-create-organization>
+    <app-create-organization (formSubmitted)="handleFormSuccess()"></app-create-organization>
   </app-custom-modal>
 
   <!-- Dashboard Heading -->
@@ -22,7 +23,7 @@
   <!-- Quick Stats -->
   <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
     <div
-      *ngFor="let stat of statsData"
+      *ngFor="let stat of superAdminStats"
       class="bg-white p-5 rounded-lg shadow-md flex items-center hover:shadow-lg transition"
     >
       <div class="w-14 h-14 flex items-center justify-center rounded-full bg-blue-100">
@@ -44,34 +45,41 @@
       <div class="flex justify-between items-center mb-4">
         <h4 class="">Recent Organizations</h4>
         <p
-          (click)="router.navigate(['/organizations'])"
+          *ngIf="recentOrganizations.length"
           class="text-tertiary underline cursor-pointer"
+          (click)="router.navigate(['/organizations'])"
         >
           View all
         </p>
       </div>
 
-      <!-- Loader -->
-      <div *ngIf="loadingOrgs" class="flex justify-center p-4">
-        <div class="animate-spin rounded-full h-6 w-6 border-t-2 border-blue-500"></div>
-      </div>
+      <!-- Reusable Loading Component -->
+      <app-custom-loader
+        *ngIf="loadingOrgs"
+        [size]="'8'"
+        [fullScreen]="true"
+        [color]="'red-500'"
+      ></app-custom-loader>
 
-      <!-- Empty State -->
-      <div *ngIf="!loadingOrgs && recentOrgs.length === 0" class="text-primary text-center py-4">
+      <!-- Empty State (When no organizations are found) -->
+      <div
+        *ngIf="!loadingOrgs && recentOrganizations.length === 0"
+        class="text-primary text-center py-4"
+      >
         No organizations found.
       </div>
 
       <!-- Organization List -->
       <div class="space-y-4">
         <div
-          *ngFor="let org of recentOrgs"
+          *ngFor="let org of recentOrganizations"
           class="flex items-center justify-between p-4 bg-gray-50 rounded-lg shadow-sm border border-gray-300 hover:shadow-md transition transform"
         >
           <div class="flex items-center">
             <img src="/svg/organization.svg" class="w-10 h-10 text-primary" alt="business icon" />
             <div class="ml-4">
-              <p class="font-medium text-gray-900 text-lg">{{ org.name }}</p>
-              <p class="text-sm text-primary">Added: {{ org.date }}</p>
+              <p class="font-medium text-gray-900 text-lg">{{ org.Name }}</p>
+              <p class="text-sm text-primary">Added: {{ org.CreatedAt | dateFormat }}</p>
             </div>
           </div>
           <app-custom-button
@@ -85,7 +93,7 @@
 
     <!-- Recent Activities -->
     <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-200">
-      <h4 class=" mb-4">Recent Activities</h4>
+      <h4 class="mb-4">Recent Activities</h4>
 
       <!-- Loader -->
       <div *ngIf="loadingActivities" class="flex justify-center p-4">

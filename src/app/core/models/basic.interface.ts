@@ -32,3 +32,8 @@ export interface ISnackbar {
 export interface IFormControl {
   [key: string]: FormControl;
 }
+
+export interface IAutoCompleOptions {
+  id: string;
+  value: string;
+}

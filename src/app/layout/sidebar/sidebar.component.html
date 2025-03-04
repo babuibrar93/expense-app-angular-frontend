@@ -22,16 +22,16 @@
     <li *ngFor="let module of modules" class="relative items-center">
       <div
         class="sidebar-item px-2 py-3 flex items-center cursor-pointer"
-        [class.bg-blue-900]="activeModule === module.name"
+        [class.bg-blue-900]="activeModule === module.Name"
         (click)="navigate(module)"
       >
         <i [class]="module.icon" class="w-5 h-5 mr-2"></i>
-        <span *ngIf="isSidebarOpen" class="text-sm font-medium">{{ module.name }}</span>
+        <span *ngIf="isSidebarOpen" class="text-sm font-medium">{{ module.Name }}</span>
         <i
-          *ngIf="module.subModules?.length && isSidebarOpen"
+          *ngIf="module.SubModules?.length && isSidebarOpen"
           [ngClass]="{
-            'fa-arrow-circle-down': activeModule !== module.name,
-            'fa-arrow-circle-up': activeModule === module.name
+            'fa-arrow-circle-down': activeModule !== module.Name,
+            'fa-arrow-circle-up': activeModule === module.Name
           }"
           class="fa ml-auto w-5 h-5"
           aria-hidden="true"
@@ -40,15 +40,15 @@
 
       <!-- Submodules -->
       <ul
-        *ngIf="activeModule === module.name && module.subModules?.length && isSidebarOpen"
+        *ngIf="activeModule === module.Name && module.SubModules?.length && isSidebarOpen"
         class="ml-8 mt-2 space-y-2"
       >
         <li
-          *ngFor="let sub of module.subModules"
+          *ngFor="let sub of module.SubModules"
           class="text-gray-300 hover:text-white px-4 py-2 rounded-lg cursor-pointer"
           (click)="toggleSidebar()"
         >
-          <span class="text-sm">{{ sub.name }}</span>
+          <span class="text-sm">{{ sub.Name }}</span>
         </li>
       </ul>
     </li>
